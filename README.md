@@ -1,8 +1,9 @@
-# Multi-Tenant RAG API
+# QueryBooks – Multi-tenant RAG Backend for Intelligent PDF Querying
 
 ## Description
 
-A FastAPI backend for book/document embedding and retrieval. Authenticated users upload PDFs or web content, store embeddings in PostgreSQL/pgvector, and query content through LLM-powered RAG with OpenAI or Ollama.
+QueryBooks is a multi-tenant RAG-based backend designed to transform static documents (PDFs, web content) into an intelligent, searchable knowledge system.
+It allows users to upload documents, generate embeddings, and interact with them using natural language queries powered by LLMs.
 
 ---
 
