@@ -113,12 +113,18 @@ flowchart LR
     Client([Client])
 
     Client -->|POST /ai/query| AI[Direct LLM Query]
-    Client -->|POST /chat<br>Bearer token| Chat[RAG Chat]
-    Client -->|POST /data/upload_pdf<br>Bearer token| UpPDF[Upload PDF]
-    Client -->|POST /data/upload_web_content<br>Bearer token| UpWeb[Upload Web Page]
+    Client -->|POST /chat\nBearer token| Chat[RAG Chat]
+    Client -->|POST /data/upload_pdf\nBearer token| UpPDF[Upload PDF]
+    Client -->|POST /data/upload_web_content\nBearer token| UpWeb[Upload Web Page]
 
     AI --> LLM[(OpenAI)]
-    Chat --> VDB[(PGVector)] & LLM
+
+    Chat -->|1 - check| Cache[(LLM Cache\nPostgreSQL)]
+    Cache -->|hit - return cached| Chat
+    Cache -->|miss| VDB[(PGVector)]
+    VDB -->|context| LLM
+    LLM -->|2 - save response| Cache
+
     UpPDF --> Embed[Embeddings] --> VDB
     UpWeb --> Embed
 ```
